@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="asoeb.png" type="image/png" sizes="32x32">
+  <title>ASF - Birds</title>
+  <style>
+    /* Define light and dark mode colors using CSS variables */
+    :root {
+      --bg-color: #f4f4f4;
+      --text-color: #333;
+      --caption-color: #555;
+      --image-border: #ddd;
+      --image-shadow: rgba(0, 0, 0, 0.2);
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --caption-color: #cccccc;
+      --image-border: #444;
+      --image-shadow: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--text-color);
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      border: 2px solid var(--image-border);
+      border-radius: 10px;
+      max-width: 100%;
+      height: auto;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px var(--image-shadow);
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-size: 1.1em;
+      color: var(--caption-color);
+    }
+
+    /* Dark mode toggle button */
+    .dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--text-color);
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    // Check for saved theme preference
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.body.setAttribute('data-theme', savedTheme);
+    });
+  </script>
+</head>
+
+<body>
+  <!-- Dark mode toggle button -->
+  <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+    <span id="theme-icon">🌙</span>
+  </button>
+
+  <h1>Bird Gallery</h1>
+  <div class="gallery">
+    <div>
+      <img src="cockatiel.png" alt="Cockatiel">
+      <div class="caption">Cockatiel</div>
+    </div>
+    <div>
+      <img src="eeping-cockatiel.png" alt="Sleeping Cockatiel">
+      <div class="caption">Sleeping Cockatiel</div>
+    </div>
+    <div>
+      <img src="sparrow.png" alt="Sparrow">
+      <div class="caption">Sparrow</div>
+    </div>
+  </div>
+
+  <p style="padding-left: 40px;">
+    Want to go back?
+    <a href="index.html">Click me!</a>
+  </p>
+
+  <script>
+    // Update the theme icon based on the current theme
+    function updateThemeIcon() {
+      const themeIcon = document.getElementById('theme-icon');
+      const currentTheme = document.body.getAttribute('data-theme');
+      themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Call the function on page load and theme change
+    document.addEventListener('DOMContentLoaded', updateThemeIcon);
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleButton = document.querySelector('.dark-mode-toggle');
+      toggleButton.addEventListener('click', updateThemeIcon);
+    });
+  </script>
+</body>
+
+</html>

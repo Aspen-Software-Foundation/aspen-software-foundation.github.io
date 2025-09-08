@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="asoeb.png" type="image/png" sizes="32x32">
+
+  <title>ASF - License Policy</title>
+  <style>
+    /* Define light and dark mode colors using CSS variables */
+    :root {
+      --bg-color: #f4f4f4;
+      --text-color: #333;
+      --link-color: #007bff;
+      --heading-color: #000;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --link-color: #1e90ff;
+      --heading-color: #ffffff;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2, h3 {
+      color: var(--heading-color);
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Dark mode toggle button */
+    .dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--text-color);
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    // Check for saved theme preference
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.body.setAttribute('data-theme', savedTheme);
+    });
+  </script>
+</head>
+
+<body>
+  <!-- Dark mode toggle button -->
+  <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+    <span id="theme-icon">🌙</span>
+  </button>
+
+  <h3 style="padding-left: 40px;">
+    Aspen Software Foundation Software License Policy
+  </h3>
+
+  <h3 style="padding-left: 40px;">
+    All software developed, distributed, or maintained by the Aspen Software Foundation is released under the terms of the GNU General Public License Version 3 (GPLv3) unless explicitly stated otherwise in the software's documentation or licensing files.
+  </h3>
+
+  <h3 style="padding-left: 40px;">
+    By using, modifying, or distributing any software provided by the Aspen Software Foundation, you agree to comply with the terms and conditions of the GPLv3. A copy of the GPLv3 license is included with all software distributions and can also be found at:
+    <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer">https://www.gnu.org/licenses/gpl-3.0.html</a>
+  </h3>
+
+  <h2 style="padding-left: 40px;">
+    Key Points:
+  </h2>
+
+  <h3 style="padding-left: 40px;">
+    Freedom to Use: You are free to use the software for any purpose, personal or commercial.
+  </h3>
+
+  <h3 style="padding-left: 40px;">
+    Freedom to Modify: You are free to study, modify, and adapt the software to your needs.
+  </h3>
+
+  <h3 style="padding-left: 40px;">
+    Freedom to Distribute: You are free to distribute original or modified versions of the software, provided you comply with the GPLv3 terms, including providing source code and preserving license notices.
+  </h3>
+
+  <h3 style="padding-left: 40px;">
+    No Warranty: The software is provided "as is," without any warranties, express or implied.
+  </h3>
+
+  <h3 style="padding-left: 40px;">
+    Exceptions:
+    If specific software projects or components require a different license due to dependencies, partnerships, or other legal considerations, such exceptions will be clearly noted in the project's documentation or licensing files.
+  </h3>
+
+  <h2 style="padding-left: 40px;">
+    Contact:
+  </h2>
+
+  <h3 style="padding-left: 40px;">
+    For questions about this policy or licensing, please contact us
+    <a href="mailto:contact-us@aspensoftwarefoundation.com">here.</a>
+  </h3>
+
+  <p style="padding-left: 60px;">
+    - Want to go back?
+    <a href="index.html">Click me!</a>
+  </p>
+
+  <script>
+    // Update the theme icon based on the current theme
+    function updateThemeIcon() {
+      const themeIcon = document.getElementById('theme-icon');
+      const currentTheme = document.body.getAttribute('data-theme');
+      themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Call the function on page load and theme change
+    document.addEventListener('DOMContentLoaded', updateThemeIcon);
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleButton = document.querySelector('.dark-mode-toggle');
+      toggleButton.addEventListener('click', updateThemeIcon);
+    });
+  </script>
+</body>
+
+</html>

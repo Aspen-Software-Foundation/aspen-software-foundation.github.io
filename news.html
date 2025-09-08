@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Latest news and updates from ASF.">
+  <meta name="theme-color" content="#ff0000">
+  <link rel="shortcut icon" href="asoeb.png" type="image/png" sizes="32x32">
+  <title>ASF - News</title>
+  <style>
+    :root {
+      --bg-color: #f4f4f4;
+      --text-color: #333;
+      --header-bg: #cc0000;
+      --header-text: #fff;
+      --container-bg: #fff;
+      --container-shadow: rgba(0, 0, 0, 0.1);
+      --news-item-border: #ddd;
+      --news-heading-color: #cc0000;
+      --date-color: #777;
+      --footer-bg: #cc0000;
+      --footer-text: #fff;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --header-bg: #990000;
+      --header-text: #ffffff;
+      --container-bg: #1e1e1e;
+      --container-shadow: rgba(255, 255, 255, 0.1);
+      --news-item-border: #444;
+      --news-heading-color: #ff6666;
+      --date-color: #aaaaaa;
+      --footer-bg: #990000;
+      --footer-text: #ffffff;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    .container {
+      width: 80%;
+      margin: 20px auto;
+      background: var(--container-bg);
+      padding: 20px;
+      box-shadow: 0 0 10px var(--container-shadow);
+    }
+
+    .news-item {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--news-item-border);
+    }
+
+    .news-item h2 {
+      color: var(--news-heading-color);
+    }
+
+    .news-item p {
+      margin: 10px 0;
+    }
+
+    .news-item .date {
+      font-size: 0.9em;
+      color: var(--date-color);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      margin-top: 20px;
+    }
+
+    .dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--text-color);
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function toggleDarkMode() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.body.setAttribute('data-theme', savedTheme);
+    });
+
+    function updateThemeIcon() {
+      const themeIcon = document.getElementById('theme-icon');
+      const currentTheme = document.body.getAttribute('data-theme');
+      themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateThemeIcon();
+      const toggleButton = document.querySelector('.dark-mode-toggle');
+      toggleButton.addEventListener('click', updateThemeIcon);
+    });
+  </script>
+</head>
+
+<body>
+  <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+    <span id="theme-icon">🌙</span>
+  </button>
+
+  <header>
+    <h1>Aspen Software Foundation News</h1>
+    <p>Latest News & Updates from ASF.</p>
+  </header>
+
+  <div class="container">
+    <div class="news-item">
+      <h2>Kernel Sustained</h2>
+      <p class="date">May 25th, 2025</p>
+      <p>Starting from My 25th, 2025, we have successfuly managed to implement directories, a GDT, an IDT, as well as an HCF (Halt and Catch Fire) loop. Want to contribute/Take a look? See our Github <a href="https://github.com/Aspen-Software-Foundation/AMP-Operating-System" target="_blank"></a>here, or our Codeberg <a href="https://codeberg.org/Aspen-Software-Foundation/AMP-Operating-System" target="_blank"></a>here!</p>
+    </div>
+
+    <div class="news-item">
+      <h2>_CrtDumpMemoryLeaks(); Emulator for Linux</h2>
+      <p class="date">April 24th, 2025</p>
+      <p>We have made an emulator of _CrtDumpMemoryLeaks(); for Linux users! Check it out on Github <a href="https://github.com/Aspen-Software-Foundation/MemLeak-Checker-Linux" target="_blank">here, or Codeberg <a href="https://codeberg.org/Aspen-Software-Foundation/MemLeak-Checker-Linux" target="_blank"></a>here!</a>.</p>
+    </div>
+
+    <div class="news-item">
+      <h2>Software Expansion</h2>
+      <p class="date">November 25th, 2024</p>
+      <p>The Aspen Software Foundation is expanding its operations to new regions. This expansion will allow us to create more software & focus on development.</p>
+    </div>
+
+    <div class="news-item">
+      <h2>Community Outreach Program</h2>
+      <p class="date">Febuary 13th, 2025</p>
+      <p>We are proud to announce our new community outreach program aimed at supporting FOSS (Free and Open Source Software) and fostering sustainable development.</p>
+    </div>
+
+    <p style="padding-left: 60px;">
+      - Want to go back? <a href="index.html">Click me!</a>
+    </p>
+
+    <p style="padding-left: 60px;">
+      - Want to contact us? <a href="mailto:contact-us@aspensoftwarefoundation.com>Email us here!</a>
+    </p>
+  </div>
+
+  <footer>
+    &copy; 2025 Aspen Software Foundation. All rights reserved.
+  </footer>
+
+</body>
+
+</html>

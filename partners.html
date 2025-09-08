@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ASF - Home</title>
+  <meta name="description" content="Aspen Software Foundation: Dedicated to Free and Open Source Software." />
+  <meta name="theme-color" content="#ff0000" />
+  <link rel="shortcut icon" href="assets/icon.png" type="image/png" sizes="32x32" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --card-bg: #f8f9fa;
+      --footer-bg: #e9ecef;
+      --card-text-color: #000000;
+      --navbar-bg: #ffffff;
+      --link-color: #007bff;
+      --navbar-text-color: #000000;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --card-bg: #1e1e1e;
+      --footer-bg: #2d2d2d;
+      --card-text-color: #ffffff;
+      --navbar-bg: #1e1e1e;
+      --link-color: #1e90ff;
+      --navbar-text-color: #ffffff;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: 0.2s ease;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      color: var(--card-text-color);
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    footer {
+      background-color: var(--footer-bg);
+      padding: 20px;
+      text-align: center;
+      margin-top: 60px;
+      border-top: 1px solid #ccc;
+    }
+
+    .navbar {
+      background-color: var(--navbar-bg) !important;
+    }
+
+    .dark-mode-toggle {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--text-color);
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 15px;
+    }
+
+    .navbar-brand,
+    .navbar-nav .nav-link,
+    .navbar-nav .btn {
+      color: var(--navbar-text-color) !important;
+    }
+
+    .navbar-nav .btn {
+      margin-left: 10px;
+    }
+  </style>
+  <script>
+    function toggleDarkMode() {
+      const body = document.body;
+      const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+      document.getElementById('theme-icon').textContent =
+        document.body.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    });
+  </script>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="assets/AspenRED.png" alt="Aspen Software Foundation Logo" height="50" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="navbar-nav ms-auto">
+          <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+            <span id="theme-icon">🌙</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container mt-5">
+    <h2 class="mb-4">Collaborating with the Boldest Minds in Open Source</h2>
+    <p>At Aspen Software Foundation, we don’t go it alone — we partner and forge together.</p>
+
+    <div class="row mt-4">
+      <div class="col-md-6 mb-4">
+        <div class="card p-4">
+          <h4>Degenerate Software Foundation</h4>
+          <p>The DSF is mainly about causing chaos (legally), and we're all up for it! (I am not encouraging chaos, but if its legal, then it has to be safe enough.. right..?)</p>
+          <a href="https://degeneratesoftware.neocities.org/" target="_blank">Visit Degenerate Software →</a>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="card p-4">
+          <h4>Forjed</h4>
+          <p>Clean code, deep principles, and we're proud to stand with them. Amazing worksmanship, and the founder is Canadian! Like, the kindest people!!</p>
+          <a href="https://forjed.xyz" target="_blank">Explore Forjed →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p><a href="license.html">Licensing</a></p>
+    <p>&copy; 2025 Aspen Software Foundation. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
