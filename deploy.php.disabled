@@ -1,0 +1,160 @@
+<?php
+
+$step = $_POST['step'] ?? '';
+
+/* =========================================
+   DEPLOY STEP
+========================================= */
+if ($step === "deploy") {
+
+    $email = $_POST['email'] ?? '';
+    $plan  = $_POST['plan'] ?? '';
+
+    if (!$email || !$plan) {
+        die("Invalid request.");
+    }
+
+    /* ========= PLAN CONFIG ========= */
+
+    switch ($plan) {
+        case "basic":
+            $ram = 2048;
+            $cores = 1;
+            break;
+
+        case "pro":
+            $ram = 4096;
+            $cores = 2;
+            break;
+
+        case "enterprise":
+            $ram = 8192;
+            $cores = 4;
+            break;
+
+        default:
+            die("Invalid plan.");
+    }
+
+    /* ========= GENERATE CREDENTIALS ========= */
+
+    $username = "user" . rand(1000,9999);
+    $password = bin2hex(random_bytes(4));
+    $vmid     = rand(2000,9999);
+
+    echo "<pre style='color:white;background:black;padding:20px;'>";
+
+    echo "Creating Proxmox user...\n";
+    echo shell_exec("/usr/sbin/pveum useradd {$username}@pve -password {$password} 2>&1");
+
+    echo "Creating VM...\n";
+    echo shell_exec("/usr/sbin/qm create {$vmid} \
+        --name {$username} \
+        --memory {$ram} \
+        --cores {$cores} \
+        --net0 virtio,bridge=vmbr0 \
+        --scsihw virtio-scsi-pci 2>&1");
+
+    echo "Attaching disk...\n";
+    echo shell_exec("/usr/sbin/qm set {$vmid} --scsi0 local-lvm:20 2>&1");
+
+    echo "Assigning boot order...\n";
+    echo shell_exec("/usr/sbin/qm set {$vmid} --boot order=scsi0 2>&1");
+
+    echo "Assigning permissions...\n";
+    echo shell_exec("/usr/sbin/pveum aclmod /vms/{$vmid} -user {$username}@pve -role PVEVMAdmin 2>&1");
+
+    echo "Starting VM...\n";
+    echo shell_exec("/usr/sbin/qm start {$vmid} 2>&1");
+
+    echo "\nDeployment Complete.\n";
+    echo "</pre>";
+
+    /* ========= EMAIL ========= */
+
+    mail(
+        $email,
+        "Your Aspen VPS is Ready",
+        "Your VPS has been deployed!\n\n".
+        "Username: $username\n".
+        "Password: $password\n".
+        "VMID: $vmid\n\n".
+        "Login at your Proxmox panel."
+    );
+
+    exit;
+}
+
+/* =========================================
+   PAYMENT CONFIRMATION STEP
+========================================= */
+if ($step === "confirm") {
+
+    $email = htmlspecialchars($_POST['email']);
+    $plan  = htmlspecialchars($_POST['plan']);
+
+    echo "
+    <html>
+    <body style='background:black;color:white;text-align:center;padding-top:150px;font-family:sans-serif;'>
+        <h1>Payment Simulation</h1>
+        <p>Plan: <b>$plan</b></p>
+        <p>Email: <b>$email</b></p>
+
+        <form method='POST'>
+            <input type='hidden' name='step' value='deploy'>
+            <input type='hidden' name='email' value='$email'>
+            <input type='hidden' name='plan' value='$plan'>
+            <button style='padding:15px 30px;background:#dc2626;color:white;border:none;border-radius:6px;'>
+                Confirm Payment
+            </button>
+        </form>
+    </body>
+    </html>
+    ";
+    exit;
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aspen Hosting Services</title>
+    <meta charset="UTF-8">
+</head>
+
+<body style="background:#000;color:#fff;font-family:sans-serif;">
+
+<div style="max-width:900px;margin:120px auto;text-align:center;">
+
+<h1 style="font-size:3rem;">
+Reliable Hosting for 
+<span style="color:#dc2626;">Open Source Projects</span>
+</h1>
+
+<p style="color:#999;margin:20px 0 40px;">
+Instant VPS deployment.
+</p>
+
+<form method="POST">
+<input type="hidden" name="step" value="confirm">
+
+<input type="email" name="email" placeholder="Your Email Address" required
+style="padding:12px;width:280px;margin-bottom:15px;border-radius:6px;border:none;"><br>
+
+<select name="plan" required
+style="padding:12px;width:280px;margin-bottom:20px;border-radius:6px;border:none;">
+    <option value="basic">Basic - 2GB RAM / 1 Core</option>
+    <option value="pro">Pro - 4GB RAM / 2 Cores</option>
+    <option value="enterprise">Enterprise - 8GB RAM / 4 Cores</option>
+</select><br>
+
+<button type="submit"
+style="padding:15px 30px;background:#dc2626;color:white;border:none;border-radius:6px;font-weight:bold;">
+Proceed to Payment
+</button>
+</form>
+
+</div>
+
+</body>
+</html>
